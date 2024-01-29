@@ -1,0 +1,320 @@
+* {
+  margin: 0;
+  padding: 3;
+  background-color: rgb(233, 233, 233);
+  /* box-sizing: border-box; */
+}
+
+h1 {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.main_content {
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+  margin: auto;
+  padding-top: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+}
+
+.left {
+  width: 65%;
+  height: 80%;
+  padding: 2rem;
+  background-color: #d0d6d8;
+  border-color: red;
+  border-radius: 3px;
+  border-width: 10px;
+}
+.left .text {
+  max-height: 60vh;
+  overflow-y: scroll;
+}
+.left .input_wrapper {
+  margin-top: 1rem;
+}
+.left input {
+  padding: 0.5rem;
+}
+.button {
+  padding: 0.5rem;
+  text-transform: uppercase;
+  background-color: black;
+  color: white;
+  display: inline;
+}
+.right {
+  background-color: #d0d6d8;
+  width: 30%;
+  /* position: relative; */
+  height: flex;
+  /* padding-top: 50px;
+  padding-right: 10px;
+  padding-bottom: 50px;
+  padding-left: 80px; */
+  padding: 15px;
+}
+.keyword {
+  display: inline-block;
+  background-color: rgb(219, 219, 219);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+}
+.topics {
+  margin-top: 3rem;
+}
+.topics h3 {
+  margin-bottom: 1rem;
+}
+.topics li {
+  margin-bottom: 0.5rem;
+}
+.topics li div {
+  display: flex;
+}
+.topics li span {
+  margin-left: auto;
+}
+
+.btn_collection {
+  position: absolute;
+  bottom: 0;
+}
+
+.text {
+  font-size: 20px;
+  height: 800px;
+}
+
+.main_background {
+  background-color: rgb(233, 233, 233);
+  /* height: 80%; */
+  width: auto;
+}
+
+.title {
+  background-color: rgb(233, 233, 233);
+  padding: 0.1rem;
+}
+
+.view_button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.2rem;
+}
+
+.textareas {
+  resize: none;
+  background-color: rgb(233, 233, 233);
+  padding: 0.1;
+  width: 10rem;
+  height: 10rem;
+}
+/* ################################################################## */
+
+/* Style the buttons that are used to open and close the accordion panel */
+/* .accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s; */
+/* } */
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+/* .active, .accordion:hover { 
+  background-color: #ccc; */
+/* } */
+
+/* Style the accordion panel. Note: hidden by default */
+/* .panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+
+.accordion:after {
+  content: '\02795';   */
+/* Unicode character for "plus" sign (+) */
+/* font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796";  */
+/* Unicode character for "minus" sign (-) */
+
+/* ################################################################### */
+
+/* body {
+  height: 100vh;
+  background-color: #000;
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(180deg, #db302a 0%, #62186b 100%) no-repeat;
+} */
+/* 
+/* .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} */
+
+.box-minmax {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  color: #060606;
+}
+.box-minmax span:first-child {
+  margin-left: 10px;
+}
+
+.range-slider {
+  margin-top: 5px;
+}
+
+.rs-range {
+  margin-top: 29px;
+  width: 100%;
+  -webkit-appearance: none;
+}
+.rs-range:focus {
+  outline: none;
+}
+.rs-range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  box-shadow: none;
+  background: #6b5555;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+.rs-range::-moz-range-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  box-shadow: none;
+  background: #7a6565;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+.rs-range::-webkit-slider-thumb {
+  box-shadow: none;
+  border: 0px solid #ffffff;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  height: 42px;
+  width: 22px;
+  border-radius: 22px;
+  background: white;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -20px;
+}
+.rs-range::-moz-range-thumb {
+  box-shadow: none;
+  border: 0px solid #3a3838;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  height: 42px;
+  width: 22px;
+  border-radius: 22px;
+  background: rgb(37, 35, 35);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -20px;
+}
+
+.alert {
+  padding: 20px;
+  margin: 5px;
+  color: #970020;
+  background-color: #ffd5de;
+}
+
+.accordion {
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+
+.accordion .accordion-item-header + .accordion-item-body {
+  /* max-height: 0px; */
+  display: none;
+  overflow: scroll;
+  transition: all 0.5s;
+}
+
+.accordion-item-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.accordion .accordion-item-header.active + .accordion-item-body {
+  /* max-height: 100px; */
+  display: block;
+  background-color: red;
+}
+.accordion-item-body::-webkit-scrollbar {
+  display: none;
+}
+.accordion-item-body-content {
+  padding: 0 1rem;
+}
+.accordion-item-body-content div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.accordion-item-body-content li {
+  list-style: none;
+  padding: 0.2rem 0.5rem;
+  margin: 0.2rem;
+  background: rgba(0, 0, 0, 0.1);
+  display: inline-block;
+}
+
+.message{
+  /* border: 5px solid;
+  display: flex;
+  height: fit-content;
+  align-items: center;
+  width:fit-content; */
+  padding: 4rem;
+}
+
+.center{
+  width: 55%;
+  height: 70%;
+  padding: 2rem;
+  background-color: #d0d6d8;
+  border-color: red;
+  border-radius: 3px;
+  border-width: 10px;
+}
+.welcometitle{
+  background-color: red;
+}

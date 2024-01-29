@@ -1,0 +1,2 @@
+user_id,doc_id,label,purity,randIndex,NMI,responseTime,sLDAUpFreq,topKeywords,recommendID,actualLabel
+2,451,tax,-1,-1,-1,0:00:07,0,2,1525,Public Lands and Water Management

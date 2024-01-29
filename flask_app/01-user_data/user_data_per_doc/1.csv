@@ -1,0 +1,4 @@
+user_id,doc_id,label,purity,randIndex,NMI,responseTime,sLDAUpFreq,topKeywords,recommendID,actualLabel
+1,78,transportation,-1,-1,-1,0:00:11,0,5,470,Transportation
+1,470,disabilities,0.15227765726681128,-0.0002033083414935918,-9.691827637894654e-05,0:00:09,0,9,1939,Labor and Employment
+1,1939,wages,0.1509761388286334,3.227256611280597e-05,-0.0005228875942169804,0:00:08,0,18,137,Labor and Employment

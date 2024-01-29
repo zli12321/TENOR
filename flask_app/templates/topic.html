@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='data.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/active-list.css') }}"
+    />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <nav class="topnav">
+      <a class="active" href="{{url_for('home_page', name=session['name'])}}"
+        >Instructions</a
+      >
+      <a href="{{url_for('active_check', name=session['name'])}}">Document List</a>
+      {% if docs_len != 0 %}
+      <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
+      {% endif %}
+      <!-- <a href="{{url_for('finish')}}"> Finish</a> -->
+      <a class="logout" href="{{url_for ('login')}}"> Finish</a>
+    </nav>
+    <main>
+      <h4> Topic {{topic_id}}</h4>
+
+      <div class="keywords__list">
+        {% for k in keywords %}
+        <p class="keyword">{{k}}</p>
+        {% endfor %}
+      </div>
+      <br>
+
+      <div class="table-wrapper active-list-table" style="overflow-y: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Document</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for a in res.keys()%}
+
+            <tr>
+              <td>{{a}}</td>
+              <td>
+                <div class="table-data">
+                  <a href="{{url_for('non_active_label', document_id=a, name=session['name'])}}">
+                    {{res[a][:200]}}</a
+                  >
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="center">
+        
+
+        
+          <button name="finish" class="view_more" type="“button”">
+            <a href="{{url_for('active_check', name=session['name'])}}">back</a>
+          </button>
+        
+      </div>
+    </main>

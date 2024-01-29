@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='data.css') }}"/>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <title>Document</title>
+    </head>
+
+    <body class="body">
+        <div class="welcome"> LABEL THE DOCUMENT </div>
+        <br>
+        <div class="overall">
+        <div class="left">
+        <div id ="text" class="label">
+            {{text}}
+        </div>
+        <form method="POST">
+        <div style="background-color:  rgb(72, 139, 181);;">
+            <input  class="text_input" name="label" type="text" placeholder="Enter a label"/>
+            <button class="submits">submit</button>
+        </div>
+    </form>
+        </div>
+
+
+        <div class="right_topics">
+            {% for a in response['topic_order'] %}
+            <div class="predicted_topics" id="{{a[0]}}">
+                <div class="viewing">
+                <div class="topic_prediction" > <h5>Topic {{a[0]}}</h5></div>
+                <button id="buttons" class="view" type="button">view</button>
+                </div>
+
+                <div class="predicted-keywords">
+                    {% for b in words[a[0]] %}
+                        <span>{{b}}</span>
+                  {% endfor %}
+                  {% for c in response["topic"][a[0]]["keywords"] %}
+                        <span>{{c}}</span>
+                    {% endfor %}
+                
+                    
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script src = "{{ url_for('static', filename='nistprep.js') }}"></script>
+<script src = "{{ url_for('static', filename='track_labels.js') }}"></script>
+    </body>
+</html>

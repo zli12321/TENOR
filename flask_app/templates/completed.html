@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='data.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/active-list.css') }}"
+    />
+    
+    <title>Document</title>
+  </head>
+
+  <body>
+    <nav class="topnav">
+      <a class="active" href="{{url_for('home_page', name=session['name'])}}"
+        >Instructions</a
+      >
+      <a href="{{url_for('active_check', name=session['name'])}}">Document List</a>
+      
+      <a id="demo" href="#">Demo</a>
+      <div class="time-container">
+        <div class="time-label">Time Elapsed:&nbsp;&nbsp;</div>
+        <div id="sessionTimer">
+          <!-- Timer elements go here -->
+        </div>
+      </div>
+      <a class="logout" id="finish" href="{{url_for ('finish')}}"> Finish</a>
+    </nav>
+    <main>
+      <h1 class="heading">This page shows the list of document you completed. To change a label, click a document you want to change </h1>
+      
+
+      <div class="all_topics">
+        {% for a in completed_docs.keys()%}
+        <div class="topic" style="text-align: center; margin: 1rem; font-size: 20px;">  {{a}} <span style="font-size: 16px; color: #999;">({{ completed_docs[a] | length }} documents)</span></div>
+        <div class="table-wrapper active-list-table" style="height: auto; overflow-y: auto;" >
+          <table>
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Document</th>
+              </tr>
+            </thead>
+            {% for b in completed_docs[a].keys() %}
+            <tbody>
+              <tr>
+                <td>{{b}}</td>
+                <td>
+                  <div id="{{b}}" class="table-data">
+                    <a
+                      href="{{url_for('view_labeled', document_id=b, name = session['name'])}}"
+                      >{{completed_docs[a][b][:200]}}</a
+                    >
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {% endfor %}
+      </div>
+
+
+
+    
+      <div class="table-wrapper active-list-table" style="height:4rem ; overflow:auto">
+
+    </div>
+
+
+      <br>
+      
+      
+    </main>
+
+    <script src="{{ url_for('static', filename='label.js') }}"></script>
+    <script src = "{{ url_for('static', filename='track_labels.js') }}"></script>
+  </body>
+</html>

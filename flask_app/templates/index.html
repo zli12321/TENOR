@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Document</title>
+  </head>
+  <body>
+    <main class = "main_background">
+    <div class="title">
+      <h1>COMMUNITY RESILIENCE USER STUDY</h1>
+    </div>
+      <div class="main_content">
+        <div class="left">
+          <div class="text", id="text">
+            {{text|safe}}
+          </div>
+          {% for message in get_flashed_messages() %}
+          <div class="alert">{{ message }}</div>
+          {% endfor %}
+          <form method="post">
+          <div class="input_wrapper">
+            <input name="newlabel" class = "label" placeholder="Enter new label">  </input>
+            <button class="button">Submit</button>
+            <!-- <button class="button">apply</button>
+            <button class="button">Approve</button> -->
+          </div>
+        </form>  
+        <span>{{counter}} {{received_data["prediction"]}}</span>  
+    </div>
+
+
+    <div class="right">
+      <br>
+      <br>
+      <div class="accordion">
+        <div>
+
+        {% for a in received_data['topic_order'][:10] %}
+            <div class="accordion-item">
+            <div class="accordion-item-header" id={{a[0]}}>
+              <p>  Topic {{a[0]}} </p>
+              <button class="accordion-btn" >View</button>
+            </div>
+            
+            <div class="accordion-item-body">
+              <div class="accordion-item-body-content">
+                
+                <p>Keywords</p>
+                <div>
+                  {% for b in words[a[0]] %}
+                    <li>{{b}}</li>
+                  {% endfor %}
+                  {% for c in received_data["topic"][a[0]]["keywords"] %}
+                    <li>{{c}}</li>
+                  {% endfor %}
+                </div>
+                
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+
+      
+    </main>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src = "..//static/interraction.js"></script>
+    <script>
+      const received = JSON.parse('{{ received_data | tojson | safe}}');
+      console.log(received)
+    </script>
+    <!-- <script src = "..//static/inter.js"></script> -->
+  </body>
+</html>

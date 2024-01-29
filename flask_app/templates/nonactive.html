@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='data.css') }}" />
+  <!-- <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/non-active-list.css') }}"
+    /> -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/non-active-label.css') }}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css" rel="stylesheet" />
+  <title>Document</title>
+</head>
+
+<body>
+  <nav class="topnav">
+    <a id="home" class="active" href="{{url_for('home_page', name=session['name'])}}">Instructions</a>
+    <a id="demo" href="#">Demo</a>
+    <!-- <a href="{{url_for('active_check', name=session['name'])}}">Documents</a> -->
+    {% if docs_len != 0 %}
+    <a id="completed" href="{{url_for('labeled_list', name=session['name'])}}"> View/Edit Responses </a>
+
+    
+    {% endif %}
+
+    <div class="time-container">
+      <div class="time-label">Time Elapsed:&nbsp;&nbsp;</div>
+      <div id="sessionTimer">
+        <!-- Timer elements go here -->
+      </div>
+    </div>
+
+
+
+
+    <a id="finish" class="logout" id="finish" href="{{url_for ('finish')}}"> Finish</a>
+  </nav>
+  <div class="welcome">
+    <h5>Find a Cluster theme, then click a document to label</h5>
+  </div>
+  <main class="non-active-list">
+
+    <div class="all_topics">
+      <div id="topicblock" class="topic">
+        <h5 style="text-align: center;">Document Cluster </h5>
+
+        <div class="keywords__list">
+          {% for k in keywords[recommended_topic] %}
+          <p class="keyword">{{k}}</p>
+          {% endfor %}
+        </div>
+        <div class="table-wrapper active-list-table">
+          <span class="ai-picked-text">AI Recommended Document To Label Is In Red</span>
+          <table id="recommended_table">
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Document</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              <tr class="ai-picked-row">
+                <td>{{recommended}}</td>
+                <td>
+                  <div id="{{recommended}}" class="table-data">
+                    <a id="recommended"
+                      href="{{url_for('non_active_label', document_id=recommended, name=name)}}"
+                      >{{recommended_block[recommended_topic][recommended]}}</a
+                    >
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+        
+            <tbody>
+
+              {% for b in recommended_block[recommended_topic].keys() %} 
+
+              {% if b != recommended%}   
+              <tr >
+                <td>{{b}}</td>
+                <td>
+                  <div id="{{b}}" class="table-data">
+                    <a
+                      href="{{url_for('non_active_label', document_id=b, name=name)}}"
+                      >{{recommended_block[recommended_topic][b]}}</a
+                    >
+                  </div>
+                </td>
+              </tr>
+              {% endif %}
+              {% endfor %}
+            </tbody>
+         
+          </table>
+          
+        </div>
+
+      </div>
+
+
+        {% for a in sliced_results.keys()%}
+
+        {% if a != recommended_topic %}
+
+
+
+        <div class="topic">
+          <h5 style="text-align: center;">Document Cluster {{ loop.index }}</h5>
+
+          <div class="keywords__list">
+            {% for k in keywords[a] %}
+            <p class="keyword">{{k}}</p>
+            {% endfor %}
+          </div>
+          <br>
+          <div class="table-wrapper active-list-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Number</th>
+                  <th>Document</th>
+                </tr>
+              </thead>
+              {% for b in sliced_results[a].keys() %}
+
+              <tbody>
+                <tr>
+                  <td>{{b}}</td>
+                  <td>
+                    <div id="{{b}}" class="table-data">
+                      <a href="{{url_for('non_active_label', document_id=b, name=name)}}">{{results[a][b][:200]}}</a>
+                    </div>
+                  </td>
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <a href="{{ url_for('topic', name=name, topic_id = a, documents=document_list[a], keywords=keywords[a])}}"><button
+              class="view_more" style="background-color: rgb(235, 241, 245);" name="Show more" type="“button”">
+              View all
+            </button>
+          </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      
+  </main>
+  <script src="{{ url_for('static', filename='label.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
+  <script src="{{ url_for('static', filename='nonactdemo.js') }}"></script>
+  <script src="{{ url_for('static', filename='track_labels.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+/* .active-list-table {
+} */
+.table-data {
+  height: 20px;
+  overflow: hidden;
+}
+
+.table-div {
+  width: 80%;
+}
+.active-list-table thead{
+    background: rgb(72, 139, 181);
+    padding: 1rem;
+    color: white;
+}
+
+.active-list-table td {
+  min-width: 5rem;
+  padding: 0.5rem 0.8rem;
+  border: 2px solid rgb(196, 196, 196);
+}
+
+
+
+.keyword {
+  background-color: rgb(250, 248, 248);
+  border-radius: 0.5rem;
+  padding: 0.2rem 1rem;
+  margin: 0.2rem 0.1rem;
+  display: inline-block;
+}

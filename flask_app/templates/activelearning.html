@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='data.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/active-learning.css') }}"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css"
+          rel="stylesheet"
+        />
+    
+
+    <title>Document</title>
+  </head>
+
+  <body class="body">
+    <div id="loading">
+      <img id="loading-image" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831" alt="Loading..." />
+    </div>
+    <nav class="topnav">
+      <a class="active" href="{{url_for('home_page', name=session['name'])}}"
+        >Instructions</a
+      >
+      <a id="demo" href="#">Demo</a>
+      <a id="documents" href="{{url_for('active_check', name=session['name'])}}">Document List</a>
+      {% if docs_len != 0 %}
+      <a href="{{url_for('labeled_list', name=session['name'])}}"> View/Edit Responses </a>
+      {% endif %}
+      
+      <div class="time-container">
+        <div class="time-label">Time Elapsed:&nbsp;&nbsp;</div>
+        <div id="sessionTimer">
+          <!-- Timer elements go here -->
+        </div>
+      </div>
+      
+      <a class="logout" id="finish" href="{{url_for('finish')}}"> Finish</a>
+    </nav>
+    <h1 class="heading" style="margin-top: 2px;">Create a Label for the Passage</h1>
+    
+    <main class="mains">
+      <div class="heading" style="background-color: rgb(233, 247, 244);">
+        {% for message in get_flashed_messages() %}
+        <h5>{{ message }}</h5>
+        {% endfor %}
+    </div>
+      <h6>Document Number: {{document_id}}</h6>
+      <div id="text" class="active-label">{{text}}</div>
+      <!-- <div> Model Suggestion: <span style="font-size: larger; font-weight: 500;">{{pred}}</span></div> -->
+      {% for suggestion in pred %}
+        <div> Label Suggestion {{ loop.index }}: <span style="font-size: larger; font-weight: 500;">{{suggestion}}</span></div>
+      {% endfor %}
+      <form method="POST">
+        <div id="model_sugges" name="responses">
+          <select class="suggestion" name="suggestion">
+            <option></option>
+            {% for c in predictions %}
+            <option value="{{c}}">{{c}}</option>
+            {% endfor %}
+          </select>
+          <input
+            id="written"
+            class="text_input"
+            name="label"
+            type="text"
+            placeholder="Enter a label"
+          />
+          <button id="myBtn" disabled>submit & next</button>
+          </div>
+      </form>
+          <button id="extraBtn" type="button">skip & next</button>
+      <!-- <div> Type a label or select one from the dropdown</div> -->
+          {% if docs_len != 0 %}
+          <div> <h6> completed {{docs_len}} out of {{total}} </h6></div>
+
+          {% else %}
+          <div> <h6> completed 0 out of {{total}} </h6></div>
+
+          {% endif %}
+    </main>
+
+    <script src="{{ url_for('static', filename='activeLearning.js') }}"></script>
+    <script src = "{{ url_for('static', filename='nistprepactive.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
+    <script src = "{{ url_for('static', filename='act_lab.js') }}"></script>
+    <script src = "{{ url_for('static', filename='track_labels.js') }}"></script>
+  </body>
+</html>
