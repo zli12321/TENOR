@@ -1,4 +1,4 @@
-# TENOR: Efficient Document Labeling/Topic Modeling Tool to Exploratory Data Analysis
+# TENOR: Efficient Document Labeling/Topic Modeling Tool to Social Scoence Content Analysis
 
 🔥
 TENOR is a user interface for speeding up document labeling process and reducing the number of documents needed to be labeled. See the paper for details:
@@ -119,8 +119,11 @@ The original Bills dataset uses numbers as labels. To correlate topics with labe
 ## Acknowledgements
 
 This project was built upon the work of the following repositories:
-- [Contextualized Topic Models](https://github.com/MilaNLProc/contextualized-topic-models)
-- [Tomotopy](https://github.com/bab2min/tomotopy)
+
+- [Embedded Topic Model Repository](https://github.com/lffloyd/embedded-topic-model/tree/main)
+- [Contextualized Topic Models Repository](https://github.com/MilaNLProc/contextualized-topic-models)
+- [BERTopic Repository](https://github.com/MaartenGr/BERTopic/tree/master)
+- [tomotopy Repository](https://github.com/bab2min/tomotopy)
 
 We extend our gratitude to the authors of these original repositories for their valuable contributions and inspiration.
 
