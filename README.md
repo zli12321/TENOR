@@ -28,7 +28,7 @@ This tool's frontend code interface is adopted from [this repository](https://gi
 
 ```bash
 git clone https://github.com/zli12321/TENOR.git
-cd 2023-document-annotation
+cd TENOR
 pip install -r requirements.txt
 ```
 
