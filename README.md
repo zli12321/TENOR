@@ -1,9 +1,6 @@
 # TENOR: Efficient Document Labeling/Topic Modeling Tool to Social Scoence Content Analysis
-
-🔥
 TENOR is a user interface for speeding up document labeling process and reducing the number of documents needed to be labeled. See the paper for details:
-- Poursabzi-Sangdeh, Forough, et al. (2016). Alto: Active learning with topic overviews for speeding label induction and document labeling. ACL. https://aclanthology.org/P16-1110.pdf
-- New Paper Coming soon!!!🔥🔥🔥
+- (2024). Beyond Automated Evaluation Metrics: Evaluating Topic Models On Practical Social Science Content Analysis Tasks. EACL. https://arxiv.org/abs/2401.16348
 
 
 ## References
@@ -11,12 +8,13 @@ TENOR is a user interface for speeding up document labeling process and reducing
 If you find this tool helpful, you can cite the following paper:
 
 ```bibtex
-@inproceedings{poursabzi2016alto,
-  title={Alto: Active learning with topic overviews for speeding label induction and document labeling},
-  author={Poursabzi-Sangdeh, Forough and Boyd-Graber, Jordan and Findlater, Leah and Seppi, Kevin},
-  booktitle={Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
-  pages={1158--1169},
-  year={2016}
+@misc{li2024automated,
+      title={Beyond Automated Evaluation Metrics: Evaluating Topic Models On Practical Social Science Content Analysis Tasks}, 
+      author={Zongxia Li and Andrew Mao and Daniel Stephens and Pranav Goel and Emily Walpole and Alden Dima and Juan Fung and Jordan Boyd-Graber},
+      year={2024},
+      eprint={2401.16348},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
 }
 ```
 
