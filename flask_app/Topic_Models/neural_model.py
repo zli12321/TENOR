@@ -3,6 +3,7 @@ This class is to train and save models for neural topic models
 '''
 import random
 import pickle
+from tqdm import tqdm
 import numpy as np
 from gensim.models import CoherenceModel
 from gensim.corpora import Dictionary
