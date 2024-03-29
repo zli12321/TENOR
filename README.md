@@ -110,7 +110,7 @@ The original Bills dataset uses numbers as labels. To correlate topics with labe
 <p align="center">
   <img src="/results/images/doc3.png" alt="Document Interface" width="900" title="Document Interface"/>
   <br>
-  <em>The Document Interface offers an immersive reading experience, providing ranked relevant topics and automatic highlights of keywords in the document.</em>
+  <em>The Document Interface improves reading experience by providing ranked relevant topics and automatic highlights of keywords in the document.</em>
 </p>
 
 
