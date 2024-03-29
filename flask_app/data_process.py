@@ -13,18 +13,17 @@ import os
 import json
 from tqdm import tqdm
 
-
-'''
-Put your data into json format that could be read by pandas
-'''
 class Preprocessing():
     def __init__(self, data_path):
         print('Processing data...')
         df = pd.read_json(data_path)
         self.df = df
-        data = df.text.values.tolist()
+        
+        data = df.text.values.tolist()[:50]
         self.data = data
         self.texts = data
+        self.labels = df.label.values.tolist()
+        self.sub_labels = df.sub_labels.values.tolist()
         self.indices_to_void = []
 
         
@@ -36,11 +35,16 @@ class Preprocessing():
         nlp = spacy.load('en_core_web_sm')
         nlp.add_pipe('sentencizer')
 
+
+            # Initialize an empty list to store the results
         docs = []
         # Wrap `tqdm` around `data` to create a progress bar
         for doc in tqdm(data):
             # Process each item with `nlp` and append to `docs` list
             docs.append(nlp(doc))
+
+        # with open(file, 'wb+') as outp:
+        #     pickle.dump(docs, outp)
 
 
         print('expanding stopwords')
@@ -100,8 +104,9 @@ class Preprocessing():
         filtered_datawords_nonstop = [[''.join(char for char in tok if char.isalpha() or char.isspace()) for tok in doc] for doc in self.data_words_nonstop]
         self.data_words_nonstop = filtered_datawords_nonstop
 
-        print('length of filtered documents is ', len(filtered_datawords_nonstop))
-        
+        print('length of datawords no stop is ', len(filtered_datawords_nonstop))
+        print(self.data_words_nonstop[:3])
+        self.labels = df.label.values.tolist()
      
     '''
     return a list of low importance words using tf-id
@@ -121,21 +126,24 @@ class Preprocessing():
     Save the processed data as tokens to perform topic modeling
     '''
     def save_data(self, save_path):
-        print('saving data...')
-        print(self.data_words_nonstop[0])
-        result = {}
+         print('saving data...')
+         print(self.data_words_nonstop[0])
+         result = {}
          
 
-        result['datawords_nonstop'] = [ele for i, ele in enumerate(self.data_words_nonstop) if i not in self.indices_to_void]
-        result['spans'] = [ele for i, ele in enumerate(self.word_spans) if i not in self.indices_to_void]
-       
-        '''
-        Save the processed texts and spans of the keywords to display to users into a pickle file
-        '''
-        with open(save_path, 'wb+') as outp:
-            pickle.dump(result, outp)
+         result['datawords_nonstop'] = [ele for i, ele in enumerate(self.data_words_nonstop) if i not in self.indices_to_void]
+         result['spans'] = [ele for i, ele in enumerate(self.word_spans) if i not in self.indices_to_void]
+         result['texts'] = [ele for i, ele in enumerate(self.texts) if i not in self.indices_to_void]
+         result['labels'] = [ele for i, ele in enumerate(self.labels) if i not in self.indices_to_void]
+         self.data_words_nonstop = result['datawords_nonstop']
+         self.texts = result['texts']
+         self.labels = result['labels'] 
+         self.sub_labels = [ele for i, ele in enumerate(self.sub_labels) if i not in self.indices_to_void]
 
-        print('processed data length', len(result['datawords_nonstop']))
+         with open(save_path, 'wb+') as outp:
+                pickle.dump(result, outp)
+
+         print('processed data length', len(result['datawords_nonstop']))
 
     '''
     Currently not being used
@@ -144,7 +152,7 @@ class Preprocessing():
         processed_test_data = [' '.join(doc) for doc in self.data_words_nonstop]
         result = []
         for i in range(len(processed_test_data)):
-            curr = {'texts': processed_test_data[i]}
+            curr = {'texts': processed_test_data[i], 'label': self.labels[i]}
             result.append(curr)
 
         df = pd.DataFrame(result)
@@ -162,28 +170,20 @@ class Preprocessing():
     def dump_new_json(self, save_path):
         result = dict()
         result['text'] = dict()
+        result['label'] = dict()
+        result['sub_labels'] = dict()
+        result['processed_text'] = dict()
         counter = 0
-        '''
-        also try to save the labels if they exist
-        '''
-        try:
-            labels = self.df.label.values.tolist()
-            sub_labels = self.df.sub_labels.tolist()
-            result['label'] = dict()
-            result['sub_labels'] = dict()
-        except:
-            print('no labels for this dataset')
-            pass
 
         '''
         Remove the documents that have fewer than 10 tokens after processing
         '''
-        for i, row in enumerate(self.data):
-            if len(self.data[i].split()) > 10 and len(self.data_words_nonstop[i]) > 4 and self.check_empty(self.data_words_nonstop[i]) == False:
-                result['text'][str(counter)] = self.data[i]
-
-                if 'label' in result: result['label'][str(counter)] = labels[i]
-                if 'sub_labels' in result: result['sub_labels'][str(counter)] = sub_labels[i]
+        for i, row in enumerate(self.texts):
+            if len(self.texts[i].split()) > 10 and len(self.data_words_nonstop[i]) > 4 and self.check_empty(self.data_words_nonstop[i]) == False:
+                result['processed_text'][str(counter)] = ' '.join(self.data_words_nonstop[i])
+                result['text'][str(counter)] = self.texts[i]
+                result['label'][str(counter)] = self.labels[i]
+                result['sub_labels'][str(counter)] = self.sub_labels[i]
                 counter += 1
             else:
                 self.indices_to_void.append(i)
@@ -195,18 +195,18 @@ class Preprocessing():
 def main():
     argparser = argparse.ArgumentParser()
     argparser.add_argument("--doc_dir", help="Where we read the source documents",
-                       type=str, default="./Data/bills/congressional_bill_train.json", required=False)
+                       type=str, default="./Data/original_congressional_bill_train.json", required=False)
     argparser.add_argument("--save_path", help="Save processed the data for topic modeling",
-                       type=str, default='./Data/bills/congressional_bill_train_processed.pkl', required=False)
+                       type=str, default='./Data/congressional_bill_train_processed.pkl', required=False)
     argparser.add_argument("--new_json_path", help="The original json file will have documents removed after processing, save\
                            the new json file for topc model",
-                       type=str, default='./Data/bills/congressional_bill_train.json', required=False)
+                       type=str, default='./Data/congressional_bill_train.json', required=False)
     
     args = argparser.parse_args()
 
     process_obj = Preprocessing(args.doc_dir)
-    process_obj.dump_new_json(args.new_json_path)
     process_obj.save_data(args.save_path)
+    process_obj.dump_new_json(args.new_json_path)
 
 if __name__ == "__main__":
     main()
